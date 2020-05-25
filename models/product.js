@@ -17,8 +17,14 @@ module.exports = class Product {
    );
   }
 
+  edit() {
+    return db.execute('UPDATE products SET title = ?, imageUrl = ?, price = ?, description = ? WHERE id = ?',
+    [this.title, this.imageUrl,  this.price, this.description, this.id]
+    );
+  }
+
   static deleteById(id) {
-   
+    return db.execute('DELETE FROM products WHERE id = ?', [id]);
   }
 
   static fetchAll() {
@@ -26,5 +32,6 @@ module.exports = class Product {
   }
 
   static findById(id) {
+    return db.execute('SELECT * FROM products WHERE id = ?', [id]);
   }
 };
