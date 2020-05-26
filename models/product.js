@@ -14,26 +14,37 @@ module.exports = class Product {
   save() {
     const db = getDB();
     //return a promise
-    return db.collection('products').insertOne(this);
+    return db
+      .collection('products')
+      .insertOne(this); //"this" refers to the Product object
   }
 
-  edit() {
-    
+  edit(id) {
+    const db = getDB();
+    return db.collection('products').updateOne({_id: new mongodb.ObjectID(id)}, {$set: this});
   }
 
   static deleteById(id) {
     const db = getDB();
-    return db.collection('products').deleteOne({_id: new mongodb.ObjectID(id)});
+    return db
+      .collection('products')
+      .deleteOne({_id: new mongodb.ObjectID(id)});
   }
 
   static fetchAll() {
     const db = getDB();
-    return db.collection('products').find().toArray();
+    return db
+      .collection('products')
+      .find()
+      .toArray();
   }
 
   static findById(id) {
     const db = getDB();
-    return db.collection('products').find({_id: new mongodb.ObjectID(id)}).next();
+    return db
+      .collection('products')
+      .find({_id: new mongodb.ObjectID(id)})
+      .next();
     // return db.collection('products').findOne({_id: new mongodb.ObjectID(id)});
   }
 };

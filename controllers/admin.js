@@ -51,7 +51,7 @@ exports.postEditProduct = (req, res, next) => {
     updatedDesc,
     updatedPrice
   );
-  updatedProduct.edit()
+  updatedProduct.edit(prodId)
     .then(() => {
       res.redirect('/admin/products');
     })
@@ -62,7 +62,7 @@ exports.postEditProduct = (req, res, next) => {
 exports.getProducts = (req, res, next) => {
   Product.fetchAll()
     .then((products)=> {
-      console.log(products);
+      // console.log(products);
       res.render('admin/products', {
         prods: products,
         pageTitle: 'Admin Products',
