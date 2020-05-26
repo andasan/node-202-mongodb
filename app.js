@@ -2,10 +2,11 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').config()
 
 const errorController = require('./controllers/error');
 
-const db = require('./util/database');
+const mongoConnect = require('./util/database');
 
 const app = express();
 
@@ -15,12 +16,6 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
-db.execute('SELECT * FROM products')
-    .then(results => {
-        // console.log(results[0], results[1]);
-    })
-    .catch(err => console.log(err))
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -29,4 +24,6 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(3000);
+mongoConnect(() => {
+    app.listen(3000);
+});

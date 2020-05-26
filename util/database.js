@@ -1,10 +1,12 @@
-const mysql = require('mysql2');
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    database: 'node-project',
-    password: 'password'
-});
+const mongoConnect = () => {
+    MongoClient.connect(process.env.MONGODB_URL)
+    .then(client =>{ 
+        console.log(client)
+    })
+    .catch(err => console.log(err))
+}
 
-module.exports = pool.promise();
+module.exports = mongoConnect;
