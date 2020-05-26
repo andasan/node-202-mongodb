@@ -1,5 +1,5 @@
 const Cart = require('./cart');
-
+const mongodb = require('mongodb');
 const getDB = require('../util/database').getDB;
 
 module.exports = class Product {
@@ -29,5 +29,8 @@ module.exports = class Product {
   }
 
   static findById(id) {
+    const db = getDB();
+    return db.collection('products').find({_id: new mongodb.ObjectID(id)}).next();
+    // return db.collection('products').findOne({_id: new mongodb.ObjectID(id)});
   }
 };
