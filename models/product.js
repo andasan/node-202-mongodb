@@ -18,9 +18,12 @@ module.exports = class Product {
   }
 
   edit() {
+    
   }
 
   static deleteById(id) {
+    const db = getDB();
+    return db.collection('products').deleteOne({_id: new mongodb.ObjectID(id)});
   }
 
   static fetchAll() {

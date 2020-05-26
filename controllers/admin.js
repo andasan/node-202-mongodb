@@ -46,7 +46,6 @@ exports.postEditProduct = (req, res, next) => {
   const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
   const updatedProduct = new Product(
-    prodId,
     updatedTitle,
     updatedImageUrl,
     updatedDesc,
@@ -65,7 +64,7 @@ exports.getProducts = (req, res, next) => {
     .then((products)=> {
       console.log(products);
       res.render('admin/products', {
-        prods: rows,
+        prods: products,
         pageTitle: 'Admin Products',
         path: '/admin/products'
       });
